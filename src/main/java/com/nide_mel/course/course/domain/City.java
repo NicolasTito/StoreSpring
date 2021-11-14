@@ -28,10 +28,6 @@ public class City implements Serializable{
 	@JoinColumn(name = "district_id")
 	private District	district;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "city")
-	private List<Address> addresses = new ArrayList<>();
-
 	public City() {
 	}
 
@@ -78,14 +74,6 @@ public class City implements Serializable{
 	public City district(District district) {
 		setDistrict(district);
 		return this;
-	}
-
-	public void setAddress(List<Address> addresses){
-		this.addresses = addresses;
-	}
-
-	public List<Address> getAddress(){
-		return this.addresses;
 	}
 
 	@Override
