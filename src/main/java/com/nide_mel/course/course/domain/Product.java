@@ -2,8 +2,10 @@ package com.nide_mel.course.course.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,9 +35,11 @@ public class Product implements Serializable {
 		joinColumns = @JoinColumn(name = "product_id"),
 		inverseJoinColumns = @JoinColumn (name = "category_id")
 	)
-
 	private List<Category> categories = new ArrayList<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.product")
+	private Set<ItemOrder> items = new HashSet<>();
 
 	public Product() {
 	}
@@ -45,6 +50,13 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
+	public List<Order> getOrders() {
+		List<Order> list = new ArrayList<>();
+		for (ItemOrder x : items) {
+			list.add(x.getOrder());
+		}
+		return list;
+	}
 
 	public Integer getId() {
 		return this.id;
@@ -98,6 +110,13 @@ public class Product implements Serializable {
 		return this;
 	}
 
+	public Set<ItemOrder> getItemOrders() {
+		return this.items;
+	}
+
+	public void setItemOrders(Set<ItemOrder> items) {
+		this.items = items;
+	}
 
 	@Override
 	public boolean equals(Object o) {

@@ -8,6 +8,7 @@ import com.nide_mel.course.course.domain.Category;
 import com.nide_mel.course.course.domain.City;
 import com.nide_mel.course.course.domain.Client;
 import com.nide_mel.course.course.domain.District;
+import com.nide_mel.course.course.domain.ItemOrder;
 import com.nide_mel.course.course.domain.Order;
 import com.nide_mel.course.course.domain.Payment;
 import com.nide_mel.course.course.domain.PaymentCreditCard;
@@ -19,6 +20,7 @@ import com.nide_mel.course.course.repositories.CategoryRepository;
 import com.nide_mel.course.course.repositories.CityRepository;
 import com.nide_mel.course.course.repositories.ClientRepository;
 import com.nide_mel.course.course.repositories.DistrictRepository;
+import com.nide_mel.course.course.repositories.ItemOrderRepository;
 import com.nide_mel.course.course.repositories.OrderRepository;
 import com.nide_mel.course.course.repositories.PaymentRepository;
 import com.nide_mel.course.course.repositories.ProductRepository;
@@ -47,6 +49,8 @@ public class CourseApplication implements CommandLineRunner{
 	private OrderRepository orderRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private ItemOrderRepository itemOrderRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseApplication.class, args);
@@ -116,5 +120,11 @@ public class CourseApplication implements CommandLineRunner{
 
 		orderRepository.saveAll(Arrays.asList(order1, order2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+
+		ItemOrder io1 = new ItemOrder(order1, p1, 0.00, 1, 1500.00);
+		ItemOrder io2 = new ItemOrder(order2, p3, 0.00, 3, 90.00);
+		ItemOrder io3 = new ItemOrder(order1, p2, 100.00, 1, 250.00);
+
+		itemOrderRepository.saveAll(Arrays.asList(io1, io2, io3));
 	}
 }
