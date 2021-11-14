@@ -2,8 +2,11 @@ package com.nide_mel.course.course.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.nide_mel.course.course.domain.enums.StatePayment;
 
+@Entity
 public class PaymentPayPal extends Payment{
 
 	private Date datePayment;

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -14,13 +16,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nide_mel.course.course.domain.enums.StatePayment;
 
 @Entity
-public class Payment implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Payment implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private StatePayment state;
+	private Integer state;
 
 	@JsonIgnore
 	@OneToOne
@@ -33,7 +36,7 @@ public class Payment implements Serializable{
 
 	public Payment(Integer id, StatePayment state, Order order) {
 		this.id = id;
-		this.state = state;
+		this.state = state.getCod();
 		this.order = order;
 	}
 
@@ -50,15 +53,15 @@ public class Payment implements Serializable{
 		return this;
 	}
 
-	public StatePayment getState() {
+	public Integer getState() {
 		return this.state;
 	}
 
-	public void setState(StatePayment state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
-	public Payment state(StatePayment state) {
+	public Payment state(Integer state) {
 		setState(state);
 		return this;
 	}

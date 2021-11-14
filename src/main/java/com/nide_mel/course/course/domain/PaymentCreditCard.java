@@ -1,7 +1,10 @@
 package com.nide_mel.course.course.domain;
 
+import javax.persistence.Entity;
+
 import com.nide_mel.course.course.domain.enums.StatePayment;
 
+@Entity
 public class PaymentCreditCard extends Payment{
 
 	private Integer numberInstallments;

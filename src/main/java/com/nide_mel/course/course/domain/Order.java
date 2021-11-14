@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "tb_order")
 public class Order implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -31,15 +33,17 @@ public class Order implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
+
+	@ManyToOne
+	@JoinColumn(name = "send_address_id")
 	private Address sendAddress;
 
 	public Order() {
 	}
 
-	public Order(Integer id, Date date, Payment payment, Client client, Address sendAddress) {
+	public Order(Integer id, Date date, Client client, Address sendAddress) {
 		this.id = id;
 		this.date = date;
-		this.payment = payment;
 		this.client = client;
 		this.sendAddress = sendAddress;
 	}

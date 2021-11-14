@@ -109,7 +109,7 @@ public class Client implements Serializable{
 		return this;
 	}
 
-	public List<Order> gOrders() {
+	public List<Order> getOrders() {
 		return this.orders;
 	}
 

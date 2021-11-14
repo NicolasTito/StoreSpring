@@ -1,5 +1,6 @@
 package com.nide_mel.course.course;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.nide_mel.course.course.domain.Address;
@@ -7,12 +8,19 @@ import com.nide_mel.course.course.domain.Category;
 import com.nide_mel.course.course.domain.City;
 import com.nide_mel.course.course.domain.Client;
 import com.nide_mel.course.course.domain.District;
+import com.nide_mel.course.course.domain.Order;
+import com.nide_mel.course.course.domain.Payment;
+import com.nide_mel.course.course.domain.PaymentCreditCard;
+import com.nide_mel.course.course.domain.PaymentPayPal;
 import com.nide_mel.course.course.domain.Product;
+import com.nide_mel.course.course.domain.enums.StatePayment;
 import com.nide_mel.course.course.repositories.AddressRepository;
 import com.nide_mel.course.course.repositories.CategoryRepository;
 import com.nide_mel.course.course.repositories.CityRepository;
 import com.nide_mel.course.course.repositories.ClientRepository;
 import com.nide_mel.course.course.repositories.DistrictRepository;
+import com.nide_mel.course.course.repositories.OrderRepository;
+import com.nide_mel.course.course.repositories.PaymentRepository;
 import com.nide_mel.course.course.repositories.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +43,10 @@ public class CourseApplication implements CommandLineRunner{
 	private ClientRepository clientRepository;
 	@Autowired
 	private AddressRepository addressRepository;
+	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
+	private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseApplication.class, args);
@@ -87,5 +99,22 @@ public class CourseApplication implements CommandLineRunner{
 
 		clientRepository.saveAll(Arrays.asList(cli1, cli2));
 		addressRepository.saveAll(Arrays.asList(addr1, addr2, addr3));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Order order1 = new Order(null, sdf.parse("30/11/2020 11:50"), cli1, addr1);
+		Order order2 = new Order(null, sdf.parse("11/09/2021 09:49"), cli2, addr2);
+
+		Payment pay1 = new PaymentCreditCard(null, StatePayment.SETTLED, order1, 12);
+		Payment pay2 = new PaymentPayPal(null, StatePayment.OUTSTANDING, order2, sdf.parse("11/09/2021 14:20"));
+
+		order1.setPayment(pay1);
+		order2.setPayment(pay2);
+
+		cli1.getOrders().addAll(Arrays.asList(order1));
+		cli2.getOrders().addAll(Arrays.asList(order2));
+
+		orderRepository.saveAll(Arrays.asList(order1, order2));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 	}
 }
