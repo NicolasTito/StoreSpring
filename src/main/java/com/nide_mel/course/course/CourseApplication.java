@@ -2,12 +2,16 @@ package com.nide_mel.course.course;
 
 import java.util.Arrays;
 
+import com.nide_mel.course.course.domain.Address;
 import com.nide_mel.course.course.domain.Category;
 import com.nide_mel.course.course.domain.City;
+import com.nide_mel.course.course.domain.Client;
 import com.nide_mel.course.course.domain.District;
 import com.nide_mel.course.course.domain.Product;
+import com.nide_mel.course.course.repositories.AddressRepository;
 import com.nide_mel.course.course.repositories.CategoryRepository;
 import com.nide_mel.course.course.repositories.CityRepository;
+import com.nide_mel.course.course.repositories.ClientRepository;
 import com.nide_mel.course.course.repositories.DistrictRepository;
 import com.nide_mel.course.course.repositories.ProductRepository;
 
@@ -27,6 +31,10 @@ public class CourseApplication implements CommandLineRunner{
 	private DistrictRepository districtRepository;
 	@Autowired
 	private CityRepository cityRepository;
+	@Autowired
+	private ClientRepository clientRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseApplication.class, args);
@@ -63,5 +71,21 @@ public class CourseApplication implements CommandLineRunner{
 
 		districtRepository.saveAll(Arrays.asList(dist1, dist2));
 		cityRepository.saveAll(Arrays.asList(city1, city2, city3));
+
+		Client cli1 = new Client(null, "João Alves", "joa@qualquer.com");
+		Client cli2 = new Client(null, "Maria Bethania", "mb@qualquer.com");
+
+		cli1.getPhone().addAll(Arrays.asList("000.000.000", "012.012.012"));
+		cli2.getPhone().addAll(Arrays.asList("111.111.111"));
+
+		Address addr1 = new Address(null, "2675-340", "rua qualquer", "12", cli1, city1);
+		Address addr2 = new Address(null, "2670-340", "rua alguma", "11", cli2, city2);
+		Address addr3 = new Address(null, "2070-340", "rua aquela ali", "100", cli1, city3);
+
+		cli1.getAdrresses().addAll(Arrays.asList(addr1, addr3));
+		cli2.getAdrresses().addAll(Arrays.asList(addr2));
+
+		clientRepository.saveAll(Arrays.asList(cli1, cli2));
+		addressRepository.saveAll(Arrays.asList(addr1, addr2, addr3));
 	}
 }
