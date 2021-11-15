@@ -4,9 +4,11 @@ import java.util.Optional;
 
 import com.nide_mel.course.course.domain.Category;
 import com.nide_mel.course.course.repositories.CategoryRepository;
+import com.nide_mel.course.course.services.exceptions.DataExceptionIntegrity;
 import com.nide_mel.course.course.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +31,14 @@ public class CategoryService {
 	public Category update(Category obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DataExceptionIntegrity("Cannot delete!!!");
+		}
 	}
 }
