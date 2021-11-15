@@ -2,8 +2,10 @@ package com.nide_mel.store.store.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.nide_mel.store.store.domain.Category;
+import com.nide_mel.store.store.dto.CategoryDTO;
 import com.nide_mel.store.store.services.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,10 @@ public class CategoryResource {
 	private CategoryService service;
 
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll() {
+	public ResponseEntity<List<CategoryDTO>> findAll() {
 		List<Category> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<CategoryDTO> listDto= list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@GetMapping(value = "/{id}")
