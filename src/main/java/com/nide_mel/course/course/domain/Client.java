@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Client implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -28,6 +30,7 @@ public class Client implements Serializable{
 	@OneToMany(mappedBy = "client")
 	private List<Address> adrresses = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 

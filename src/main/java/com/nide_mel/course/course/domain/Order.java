@@ -17,8 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable{
@@ -32,7 +30,6 @@ public class Order implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
 	private Payment payment;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
