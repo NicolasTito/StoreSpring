@@ -10,6 +10,9 @@ import com.nide_mel.store.store.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,5 +48,11 @@ public class CategoryService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DataExceptionIntegrity("Cannot delete!!!");
 		}
+	}
+
+	public Page<Category> findPage(Integer page, Integer linesPages, String orderBy, String direction) {
+
+		PageRequest pageRequest = PageRequest.of(page, linesPages, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
 	}
 }
