@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.nide_mel.store.store.domain.Category;
+import com.nide_mel.store.store.dto.CategoryDTO;
 import com.nide_mel.store.store.repositories.CategoryRepository;
 import com.nide_mel.store.store.services.exceptions.DataExceptionIntegrity;
 import com.nide_mel.store.store.services.exceptions.ObjectNotFoundException;
@@ -54,5 +55,9 @@ public class CategoryService {
 
 		PageRequest pageRequest = PageRequest.of(page, linesPages, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+
+	public Category fromDto(CategoryDTO objDto) {
+		return new Category(objDto.getId(), objDto.getName());
 	}
 }
