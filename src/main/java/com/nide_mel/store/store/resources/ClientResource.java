@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import com.nide_mel.store.store.domain.Client;
 import com.nide_mel.store.store.dto.ClientDTO;
+import com.nide_mel.store.store.dto.ClientNewDTO;
 import com.nide_mel.store.store.services.ClientService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class ClientResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClientDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO objDto) {
 		Client obj = service.fromDto(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("./{id}").buildAndExpand(obj.getId()).toUri();
