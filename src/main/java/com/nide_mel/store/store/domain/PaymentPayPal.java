@@ -5,9 +5,11 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nide_mel.store.store.domain.enums.StatePayment;
 
 @Entity
+@JsonTypeName("paypal")
 public class PaymentPayPal extends Payment{
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")

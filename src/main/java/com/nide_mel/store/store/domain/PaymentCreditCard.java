@@ -2,9 +2,11 @@ package com.nide_mel.store.store.domain;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nide_mel.store.store.domain.enums.StatePayment;
 
 @Entity
+@JsonTypeName("card")
 public class PaymentCreditCard extends Payment{
 
 	private Integer numberInstallments;

@@ -1,10 +1,8 @@
 package com.nide_mel.store.store.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.nide_mel.store.store.domain.Product;
-import com.nide_mel.store.store.dto.CategoryDTO;
 import com.nide_mel.store.store.dto.ProductDTO;
 import com.nide_mel.store.store.resources.utils.URL;
 import com.nide_mel.store.store.services.ProductService;
