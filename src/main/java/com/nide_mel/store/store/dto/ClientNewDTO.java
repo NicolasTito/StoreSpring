@@ -2,6 +2,9 @@ package com.nide_mel.store.store.dto;
 
 import java.io.Serializable;
 
+import com.nide_mel.store.store.services.validation.ClientInsert;
+
+@ClientInsert
 public class ClientNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 

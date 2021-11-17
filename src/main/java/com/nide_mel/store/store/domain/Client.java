@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +27,11 @@ public class Client implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer	id;
 	private String	name;
+
+	@Column(unique = true)
 	private String	email;
 
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> adrresses = new ArrayList<>();
 
 	@JsonIgnore
