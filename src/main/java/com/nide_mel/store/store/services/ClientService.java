@@ -64,7 +64,6 @@ public class ClientService {
 	}
 
 	public Page<Client> findPage(Integer page, Integer linesPages, String orderBy, String direction) {
-
 		PageRequest pageRequest = PageRequest.of(page, linesPages, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}

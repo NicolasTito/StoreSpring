@@ -60,20 +60,46 @@ public class StoreApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		Category cat1 = new Category(null, "Computing");
 		Category cat2 = new Category(null, "Office");
+		Category cat3 = new Category(null, "Home");
+		Category cat4 = new Category(null, "Electronics");
+		Category cat5 = new Category(null, "Gardening");
+		Category cat6 = new Category(null, "Decoration");
+		Category cat7 = new Category(null, "");
 
 		Product p1 = new Product(null, "Computer", 1500.00);
 		Product p2 = new Product(null, "Printer", 250.00);
 		Product p3 = new Product(null, "Mouse", 30.00);
+		Product p4 = new Product(null, "Officce Table", 250.00);
+		Product p5 = new Product(null, "Towel", 30.00);
+		Product p6 = new Product(null, "Quilt", 50.00);
+		Product p7 = new Product(null, "Tv", 1500.00);
+		Product p8 = new Product(null, "Brushcutter", 300.00);
+		Product p9 = new Product(null, "Lampshade", 30.00);
+		Product p10 = new Product(null, "Channel", 250.00);
+		Product p11 = new Product(null, "Shampoo", 10.00);
 
 		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProducts().addAll(Arrays.asList(p2));
+		cat2.getProducts().addAll(Arrays.asList(p2, p4));
+		cat3.getProducts().addAll(Arrays.asList(p5, p6));
+		cat4.getProducts().addAll(Arrays.asList(p1, p2, p3, p7));
+		cat5.getProducts().addAll(Arrays.asList(p8));
+		cat6.getProducts().addAll(Arrays.asList(p9));
+		cat7.getProducts().addAll(Arrays.asList(p10, p11));
 
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategories().addAll(Arrays.asList(cat1));
+		p1.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategories().addAll(Arrays.asList(cat1, cat2, cat4));
+		p3.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p4.getCategories().addAll(Arrays.asList(cat2));
+		p5.getCategories().addAll(Arrays.asList(cat3));
+		p6.getCategories().addAll(Arrays.asList(cat3));
+		p7.getCategories().addAll(Arrays.asList(cat4));
+		p8.getCategories().addAll(Arrays.asList(cat5));
+		p9.getCategories().addAll(Arrays.asList(cat6));
+		p10.getCategories().addAll(Arrays.asList(cat7));
+		p11.getCategories().addAll(Arrays.asList(cat7));
 
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
-		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
 		District dist1 = new District(null, "Lisboa");
 		District dist2 = new District(null, "Porto");
